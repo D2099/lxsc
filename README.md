@@ -1,5 +1,5 @@
 # lxsc
-老邪商城 前后端分离 SpringCloud项目
+老邪商城 前后端分离 SpringCloud项目 学习阶段项目
 
 ## 第三章  环境搭建
 
