@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zsycx.seckill.mapper.OrdersMapper">
+    <resultMap id="BaseResultMap" type="com.zsycx.seckill.domain.Orders">
+        <id column="id" jdbcType="BIGINT" property="id"/>
+        <result column="uid" jdbcType="BIGINT" property="uid"/>
+        <result column="goods_id" jdbcType="BIGINT" property="goodsId"/>
+        <result column="buy_num" jdbcType="INTEGER" property="buyNum"/>
+        <result column="buy_price" jdbcType="DECIMAL" property="buyPrice"/>
+        <result column="order_money" jdbcType="DECIMAL" property="orderMoney"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="status" jdbcType="INTEGER" property="status"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        id
+        , uid, goods_id, buy_num, buy_price, order_money, create_time, status
+    </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from orders
+        where id = #{id,jdbcType=BIGINT}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+        delete
+        from orders
+        where id = #{id,jdbcType=BIGINT}
+    </delete>
+    <insert id="insert" parameterType="com.zsycx.seckill.domain.Orders">
+        insert into orders (uid, goods_id,
+        buy_num, buy_price, order_money,
+        create_time, status)
+        values (#{uid,jdbcType=BIGINT}, #{goodsId,jdbcType=BIGINT},
+        #{buyNum,jdbcType=INTEGER}, #{buyPrice,jdbcType=DECIMAL}, #{orderMoney,jdbcType=DECIMAL},
+        #{createTime,jdbcType=TIMESTAMP}, #{status,jdbcType=INTEGER})
+        <selectKey keyColumn="id" keyProperty="id" resultType="Long" order="AFTER">
+            select @@identity
+        </selectKey>
+    </insert>
+    <insert id="insertSelective" parameterType="com.zsycx.seckill.domain.Orders">
+        insert into orders
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="uid != null">
+                uid,
+            </if>
+            <if test="goodsId != null">
+                goods_id,
+            </if>
+            <if test="buyNum != null">
+                buy_num,
+            </if>
+            <if test="buyPrice != null">
+                buy_price,
+            </if>
+            <if test="orderMoney != null">
+                order_money,
+            </if>
+            <if test="createTime != null">
+                create_time,
+            </if>
+            <if test="status != null">
+                status,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=BIGINT},
+            </if>
+            <if test="uid != null">
+                #{uid,jdbcType=BIGINT},
+            </if>
+            <if test="goodsId != null">
+                #{goodsId,jdbcType=BIGINT},
+            </if>
+            <if test="buyNum != null">
+                #{buyNum,jdbcType=INTEGER},
+            </if>
+            <if test="buyPrice != null">
+                #{buyPrice,jdbcType=DECIMAL},
+            </if>
+            <if test="orderMoney != null">
+                #{orderMoney,jdbcType=DECIMAL},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="status != null">
+                #{status,jdbcType=INTEGER},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.zsycx.seckill.domain.Orders">
+        update orders
+        <set>
+            <if test="uid != null">
+                uid = #{uid,jdbcType=BIGINT},
+            </if>
+            <if test="goodsId != null">
+                goods_id = #{goodsId,jdbcType=BIGINT},
+            </if>
+            <if test="buyNum != null">
+                buy_num = #{buyNum,jdbcType=INTEGER},
+            </if>
+            <if test="buyPrice != null">
+                buy_price = #{buyPrice,jdbcType=DECIMAL},
+            </if>
+            <if test="orderMoney != null">
+                order_money = #{orderMoney,jdbcType=DECIMAL},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="status != null">
+                status = #{status,jdbcType=INTEGER},
+            </if>
+        </set>
+        where id = #{id,jdbcType=BIGINT}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.zsycx.seckill.domain.Orders">
+        update orders
+        set uid         = #{uid,jdbcType=BIGINT},
+            goods_id    = #{goodsId,jdbcType=BIGINT},
+            buy_num     = #{buyNum,jdbcType=INTEGER},
+            buy_price   = #{buyPrice,jdbcType=DECIMAL},
+            order_money = #{orderMoney,jdbcType=DECIMAL},
+            create_time = #{createTime,jdbcType=TIMESTAMP},
+            status      = #{status,jdbcType=INTEGER}
+        where id = #{id,jdbcType=BIGINT}
+    </update>
+</mapper>

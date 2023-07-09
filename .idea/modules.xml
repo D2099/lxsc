@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/LXMall-01-Eureka-Server/LXMall-01-Eureka-Server.iml" filepath="$PROJECT_DIR$/LXMall-01-Eureka-Server/LXMall-01-Eureka-Server.iml" />
+      <module fileurl="file://$PROJECT_DIR$/LXMall-02-Commons/LXMall-02-Commons.iml" filepath="$PROJECT_DIR$/LXMall-02-Commons/LXMall-02-Commons.iml" />
+      <module fileurl="file://$PROJECT_DIR$/LXMall-03-User-Server/LXMall-03-User-Server.iml" filepath="$PROJECT_DIR$/LXMall-03-User-Server/LXMall-03-User-Server.iml" />
+      <module fileurl="file://$PROJECT_DIR$/LXMall-04-Goods-Server/LXMall-04-Goods-Server.iml" filepath="$PROJECT_DIR$/LXMall-04-Goods-Server/LXMall-04-Goods-Server.iml" />
+      <module fileurl="file://$PROJECT_DIR$/LXMall-05-Orders-Server/LXMall-05-Orders-Server.iml" filepath="$PROJECT_DIR$/LXMall-05-Orders-Server/LXMall-05-Orders-Server.iml" />
+      <module fileurl="file://$PROJECT_DIR$/LXMall-06-Timer-Server/LXMall-06-Timer-Server.iml" filepath="$PROJECT_DIR$/LXMall-06-Timer-Server/LXMall-06-Timer-Server.iml" />
+      <module fileurl="file://$PROJECT_DIR$/LXMall-07-SecKill-Commons/LXMall-07-SecKill-Commons.iml" filepath="$PROJECT_DIR$/LXMall-07-SecKill-Commons/LXMall-07-SecKill-Commons.iml" />
+      <module fileurl="file://$PROJECT_DIR$/LXMall-08-SecKill-Goods-Server/LXMall-08-SecKill-Goods-Server.iml" filepath="$PROJECT_DIR$/LXMall-08-SecKill-Goods-Server/LXMall-08-SecKill-Goods-Server.iml" />
+      <module fileurl="file://$PROJECT_DIR$/LXMall-09-SecKill-Orders-Server/LXMall-09-SecKill-Orders-Server.iml" filepath="$PROJECT_DIR$/LXMall-09-SecKill-Orders-Server/LXMall-09-SecKill-Orders-Server.iml" />
+    </modules>
+  </component>
+</project>

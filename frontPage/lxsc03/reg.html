@@ -1,0 +1,72 @@
+<!DOCTYPE html
+	PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>注册</title>
+	<link href="css/style.css" type="text/css" rel="stylesheet" />
+	<link href="css/registry.css" type="text/css" rel="stylesheet" />
+	<script src="js/vue.min.js"></script>
+	<script src="js/axios.min.js"></script>
+</head>
+<body class="member">
+	<div id="app">
+		<div class="w1185">
+			<div class="logo"><a href="#"></a></div>
+			<div class="font-d">欢迎登陆</div>
+			<div class="search">
+				<form action="#" class="form">
+					<input type="text" value="输入商品关键字" name="keyword" class="txt"
+						onfocus="if(value=='输入商品关键字') {value=''}" onblur="if(value=='') {value='输入商品关键字'}" />
+					<input type="submit" value="搜索" class="sub" />
+				</form>
+				<p><a href="#">iphone6s</a>|<a href="#">面膜</a>|<a href="#">婚庆床品</a>|<a href="#">运动鞋</a>|<a
+						href="#">眼霜</a>|<a href="#">月饼</a>|<a href="#">智能手机</a>|<a href="#">连衣裙</a></p>
+			</div>
+			<div class="s_r"><img src="images/tel.jpg" /></div>
+			<div class="clear"></div>
+		</div>
+
+		<div class="reg">
+			<div class="w1185">
+				<div class="left">
+					<p><b>免费注册</b></p>
+					<form action="#" class="form">
+						<ul>
+							<li><span><font>*</font> 手机号：</span><input type="text" maxlength="11" class="txt" v-model="phone"/></li>
+							<li class="regInfoLi"><span class="regInfo">{{ phoneInfo }}</span></li><!-- 自定义提示信息 -->
+							<li class="regNoneInfoLi"><span> 昵称：</span><input type="text" maxlength="32" class="txt" v-model="nickName"/></li>
+							<li class="regNoneInfoLi"><span><font>*</font> 请设置密码：</span><input type="password" maxlength="32" class="txt" v-model="password"/></li>
+							
+							<li><span><font>*</font> 请确认密码：</span><input type="password" maxlength="32" class="txt" v-model="confirmPassword"/></li>
+							<li class="regInfoLi"><span class="regInfo">{{ confirmPWInfo }}</span></li><!-- 自定义提示信息 -->
+							<li class="li01"><label for="readInfo"><input id="readInfo" type="checkbox" v-model="readInfoFlag"/>我已阅并同意</label><a rel="#">《老邪商城用户注册协议》</a></li>
+							
+							<!-- <label for="sex2"><input type="radio" id="sex2" name="sex" value="1">女</label> -->
+							<li class="regReadInfoLi"><span class="regInfo" v-show="readInfo != ''">{{ readInfo }}</span></li><!-- 自定义提示信息 -->
+							<li class="li02"><input type="button" value="立即注册" class="sub" v-on:click="reg()"/></li>
+							<li class="li01">
+								<span style="color: red;font-size: 15px;width: 100%;text-align: left;"></span>
+							</li>
+						</ul>
+					</form>
+
+				</div>
+				<div class="right">我经注册，马上<a rel="#">登录</a></div>
+
+				<div class="clear">
+				</div>
+			</div>
+		</div>
+
+		<div class="bottom">
+			<a href="#">关于我们</a>|<a href="#">帮助中心</a>|<a href="#">法律声明</a>|<a href="#">用户协议</a>|<a
+				href="#">联系我们</a>|<a href="#">人才招聘</a>|<a href="#">站点地图</a>
+
+			<p>网络文化经营许可证：粤网文XXX号<br />© 2021 IT老邪. 粤ICP备XXX号</p>
+		</div>
+	</div>
+</body>
+<!-- 导入自定义注册页面 js 文件 -->
+<script src="js/user/registry.js"></script>
+</html>

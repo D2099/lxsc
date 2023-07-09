@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zsycx.goods.mapper.GoodsImgMapper">
+  <resultMap id="BaseResultMap" type="com.zsycx.goods.domain.GoodsImg">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="url" jdbcType="VARCHAR" property="url" />
+    <result column="goods_id" jdbcType="BIGINT" property="goodsId" />
+    <result column="orders" jdbcType="INTEGER" property="orders" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, url, goods_id, orders
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from g_goods_img
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from g_goods_img
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.zsycx.goods.domain.GoodsImg">
+    insert into g_goods_img (id, url, goods_id, 
+      orders)
+    values (#{id,jdbcType=BIGINT}, #{url,jdbcType=VARCHAR}, #{goodsId,jdbcType=BIGINT}, 
+      #{orders,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zsycx.goods.domain.GoodsImg">
+    insert into g_goods_img
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="url != null">
+        url,
+      </if>
+      <if test="goodsId != null">
+        goods_id,
+      </if>
+      <if test="orders != null">
+        orders,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="url != null">
+        #{url,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsId != null">
+        #{goodsId,jdbcType=BIGINT},
+      </if>
+      <if test="orders != null">
+        #{orders,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zsycx.goods.domain.GoodsImg">
+    update g_goods_img
+    <set>
+      <if test="url != null">
+        url = #{url,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsId != null">
+        goods_id = #{goodsId,jdbcType=BIGINT},
+      </if>
+      <if test="orders != null">
+        orders = #{orders,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zsycx.goods.domain.GoodsImg">
+    update g_goods_img
+    set url = #{url,jdbcType=VARCHAR},
+      goods_id = #{goodsId,jdbcType=BIGINT},
+      orders = #{orders,jdbcType=INTEGER}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

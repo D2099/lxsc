@@ -1,0 +1,5 @@
+/* 注册成功跳转页面自定义 */
+.member .reg .w1185{height: 300px;}
+.member .reg .w1185 p b{font-size:30px;position:absolute;left:50%;top:50%;transform:translate(-50%,-150%);}
+.member .reg .w1185 .successInfo{text-align:center;font-size:18px;transform:translate(0%,650%);}
+.member .reg .w1185 .successInfo a{color:red}

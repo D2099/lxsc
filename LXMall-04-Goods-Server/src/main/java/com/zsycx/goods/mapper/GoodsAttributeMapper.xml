@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zsycx.goods.mapper.GoodsAttributeMapper">
+  <resultMap id="BaseResultMap" type="com.zsycx.goods.domain.GoodsAttribute">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="arrt_id" jdbcType="BIGINT" property="arrtId" />
+    <result column="goods_id" jdbcType="BIGINT" property="goodsId" />
+    <result column="value" jdbcType="VARCHAR" property="value" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, arrt_id, goods_id, value
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from g_goods_attribute
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from g_goods_attribute
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.zsycx.goods.domain.GoodsAttribute">
+    insert into g_goods_attribute (id, arrt_id, goods_id, 
+      value)
+    values (#{id,jdbcType=BIGINT}, #{arrtId,jdbcType=BIGINT}, #{goodsId,jdbcType=BIGINT}, 
+      #{value,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zsycx.goods.domain.GoodsAttribute">
+    insert into g_goods_attribute
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="arrtId != null">
+        arrt_id,
+      </if>
+      <if test="goodsId != null">
+        goods_id,
+      </if>
+      <if test="value != null">
+        value,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="arrtId != null">
+        #{arrtId,jdbcType=BIGINT},
+      </if>
+      <if test="goodsId != null">
+        #{goodsId,jdbcType=BIGINT},
+      </if>
+      <if test="value != null">
+        #{value,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zsycx.goods.domain.GoodsAttribute">
+    update g_goods_attribute
+    <set>
+      <if test="arrtId != null">
+        arrt_id = #{arrtId,jdbcType=BIGINT},
+      </if>
+      <if test="goodsId != null">
+        goods_id = #{goodsId,jdbcType=BIGINT},
+      </if>
+      <if test="value != null">
+        value = #{value,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zsycx.goods.domain.GoodsAttribute">
+    update g_goods_attribute
+    set arrt_id = #{arrtId,jdbcType=BIGINT},
+      goods_id = #{goodsId,jdbcType=BIGINT},
+      value = #{value,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

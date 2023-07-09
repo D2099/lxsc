@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="LXMall-06-Timer-Server" />
+        <module name="LXMall-02-Commons" />
+        <module name="LXMall-04-Goods-Server" />
+        <module name="LXMall-01-Eureka-Server" />
+        <module name="LXMall-03-User-Server" />
+        <module name="LXMall-07-SecKill-Commons" />
+        <module name="LXMall-05-Orders-Server" />
+        <module name="LXMall-08-SecKill-Goods-Server" />
+        <module name="LXMall-09-SecKill-Orders-Server" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="LXMall-01-Eureka-Server" target="1.8" />
+      <module name="LXMall-02-Commons" target="8" />
+      <module name="LXMall-03-User-Server" target="1.8" />
+      <module name="LXMall-04-Goods-Server" target="1.8" />
+      <module name="LXMall-05-Orders-Server" target="1.8" />
+      <module name="LXMall-06-Timer-Server" target="1.8" />
+      <module name="LXMall-07-SecKill-Commons" target="1.5" />
+      <module name="LXMall-08-SecKill-Goods-Server" target="1.8" />
+      <module name="LXMall-09-SecKill-Orders-Server" target="1.8" />
+    </bytecodeTargetLevel>
+  </component>
+  <component name="JavacSettings">
+    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="LXMall-01-Eureka-Server" options="-parameters" />
+      <module name="LXMall-03-User-Server" options="-parameters" />
+      <module name="LXMall-04-Goods-Server" options="-parameters" />
+      <module name="LXMall-05-Orders-Server" options="-parameters" />
+      <module name="LXMall-06-Timer-Server" options="-parameters" />
+      <module name="LXMall-07-SecKill-Commons" options="" />
+      <module name="LXMall-08-SecKill-Goods-Server" options="-parameters" />
+      <module name="LXMall-09-SecKill-Orders-Server" options="-parameters" />
+    </option>
+  </component>
+</project>

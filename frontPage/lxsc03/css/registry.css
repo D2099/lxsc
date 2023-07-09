@@ -1,0 +1,5 @@
+/* 注册提示信息自定义 */
+.member .reg .w1185 .left ul .regNoneInfoLi{margin-bottom: 30px;}
+.member .reg .w1185 .left ul .regInfoLi{margin-top: 0px;height: 30px;}
+.member .reg .w1185 .left ul .regReadInfoLi{margin-top: 0px;height: 14px;}
+.member .reg .w1185 .left ul .regInfo{color:red;margin-left:120px;width: auto;}

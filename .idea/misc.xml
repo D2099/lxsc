@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="MavenProjectsManager">
+    <option name="originalFiles">
+      <list>
+        <option value="$PROJECT_DIR$/LXMall-01-Eureka-Server/pom.xml" />
+        <option value="$PROJECT_DIR$/LXMall-02-Commons/pom.xml" />
+        <option value="$PROJECT_DIR$/LXMall-03-User-Server/pom.xml" />
+        <option value="$PROJECT_DIR$/LXMall-04-Goods-Server/pom.xml" />
+        <option value="$PROJECT_DIR$/LXMall-05-Orders-Server/pom.xml" />
+        <option value="$PROJECT_DIR$/LXMall-06-Timer-Server/pom.xml" />
+        <option value="$PROJECT_DIR$/LXMall-07-SecKill-Commons/pom.xml" />
+        <option value="$PROJECT_DIR$/LXMall-08-SecKill-Goods-Server/pom.xml" />
+        <option value="$PROJECT_DIR$/LXMall-09-SecKill-Orders-Server/pom.xml" />
+      </list>
+    </option>
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_8" project-jdk-name="1.8" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/out" />
+  </component>
+</project>

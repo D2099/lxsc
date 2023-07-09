@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zsycx.orders.mapper.OrdersMapper">
+    <resultMap id="BaseResultMap" type="com.zsycx.orders.domain.Orders">
+        <id column="id" jdbcType="BIGINT" property="id"/>
+        <result column="orders_money" jdbcType="DECIMAL" property="ordersMoney"/>
+        <result column="actual_money" jdbcType="DECIMAL" property="actualMoney"/>
+        <result column="point" jdbcType="INTEGER" property="point"/>
+        <result column="status" jdbcType="INTEGER" property="status"/>
+        <result column="create_time" jdbcType="BIGINT" property="createTime"/>
+        <result column="user_id" jdbcType="BIGINT" property="userId"/>
+        <result column="address_id" jdbcType="BIGINT" property="addressId"/>
+        <result column="order_no" jdbcType="CHAR" property="orderNo"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        id
+        , orders_money, actual_money, point, status, create_time, user_id, address_id,
+    order_no
+    </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from o_orders
+        where id = #{id,jdbcType=BIGINT}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+        delete
+        from o_orders
+        where id = #{id,jdbcType=BIGINT}
+    </delete>
+    <insert id="insert" parameterType="com.zsycx.orders.domain.Orders">
+        insert into o_orders (id, orders_money, actual_money,
+                              point, status, create_time,
+                              user_id, address_id, order_no)
+        values (#{id,jdbcType=BIGINT}, #{ordersMoney,jdbcType=DECIMAL}, #{actualMoney,jdbcType=DECIMAL},
+                #{point,jdbcType=INTEGER}, #{status,jdbcType=INTEGER}, #{createTime,jdbcType=BIGINT},
+                #{userId,jdbcType=BIGINT}, #{addressId,jdbcType=BIGINT}, #{orderNo,jdbcType=CHAR})
+    </insert>
+    <insert id="insertSelective" parameterType="com.zsycx.orders.domain.Orders">
+        insert into o_orders
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="ordersMoney != null">
+                orders_money,
+            </if>
+            <if test="actualMoney != null">
+                actual_money,
+            </if>
+            <if test="point != null">
+                point,
+            </if>
+            <if test="status != null">
+                status,
+            </if>
+            <if test="createTime != null">
+                create_time,
+            </if>
+            <if test="userId != null">
+                user_id,
+            </if>
+            <if test="addressId != null">
+                address_id,
+            </if>
+            <if test="orderNo != null">
+                order_no,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=BIGINT},
+            </if>
+            <if test="ordersMoney != null">
+                #{ordersMoney,jdbcType=DECIMAL},
+            </if>
+            <if test="actualMoney != null">
+                #{actualMoney,jdbcType=DECIMAL},
+            </if>
+            <if test="point != null">
+                #{point,jdbcType=INTEGER},
+            </if>
+            <if test="status != null">
+                #{status,jdbcType=INTEGER},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=BIGINT},
+            </if>
+            <if test="userId != null">
+                #{userId,jdbcType=BIGINT},
+            </if>
+            <if test="addressId != null">
+                #{addressId,jdbcType=BIGINT},
+            </if>
+            <if test="orderNo != null">
+                #{orderNo,jdbcType=CHAR},
+            </if>
+        </trim>
+        <selectKey keyColumn="id" keyProperty="id" order="AFTER" resultType="Long">
+            select @@identity
+        </selectKey>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.zsycx.orders.domain.Orders">
+        update o_orders
+        <set>
+            <if test="ordersMoney != null">
+                orders_money = #{ordersMoney,jdbcType=DECIMAL},
+            </if>
+            <if test="actualMoney != null">
+                actual_money = #{actualMoney,jdbcType=DECIMAL},
+            </if>
+            <if test="point != null">
+                point = #{point,jdbcType=INTEGER},
+            </if>
+            <if test="status != null">
+                status = #{status,jdbcType=INTEGER},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime,jdbcType=BIGINT},
+            </if>
+            <if test="userId != null">
+                user_id = #{userId,jdbcType=BIGINT},
+            </if>
+            <if test="addressId != null">
+                address_id = #{addressId,jdbcType=BIGINT},
+            </if>
+            <if test="orderNo != null">
+                order_no = #{orderNo,jdbcType=CHAR},
+            </if>
+        </set>
+        where id = #{id,jdbcType=BIGINT}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.zsycx.orders.domain.Orders">
+        update o_orders
+        set orders_money = #{ordersMoney,jdbcType=DECIMAL},
+            actual_money = #{actualMoney,jdbcType=DECIMAL},
+            point        = #{point,jdbcType=INTEGER},
+            status       = #{status,jdbcType=INTEGER},
+            create_time  = #{createTime,jdbcType=BIGINT},
+            user_id      = #{userId,jdbcType=BIGINT},
+            address_id   = #{addressId,jdbcType=BIGINT},
+            order_no     = #{orderNo,jdbcType=CHAR}
+        where id = #{id,jdbcType=BIGINT}
+    </update>
+</mapper>

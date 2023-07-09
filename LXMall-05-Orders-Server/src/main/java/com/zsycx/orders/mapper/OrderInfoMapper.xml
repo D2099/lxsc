@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zsycx.orders.mapper.OrderInfoMapper">
+    <resultMap id="BaseResultMap" type="com.zsycx.orders.domain.OrderInfo">
+        <id column="id" jdbcType="BIGINT" property="id"/>
+        <result column="price" jdbcType="DECIMAL" property="price"/>
+        <result column="amount" jdbcType="INTEGER" property="amount"/>
+        <result column="goods_id" jdbcType="BIGINT" property="goodsId"/>
+        <result column="orders_id" jdbcType="BIGINT" property="ordersId"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        id
+        , price, amount, goods_id, orders_id
+    </sql>
+
+    <select id="selectConfirmOrderInfoByOrdersId" resultType="Map">
+        select *
+        from v_confirm_order_info
+        where orders_id = #{ordersId}
+    </select>
+
+    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from o_order_info
+        where id = #{id,jdbcType=BIGINT}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+        delete
+        from o_order_info
+        where id = #{id,jdbcType=BIGINT}
+    </delete>
+    <insert id="insert" parameterType="com.zsycx.orders.domain.OrderInfo">
+        insert into o_order_info (id, price, amount,
+                                  goods_id, orders_id)
+        values (#{id,jdbcType=BIGINT}, #{price,jdbcType=DECIMAL}, #{amount,jdbcType=INTEGER},
+                #{goodsId,jdbcType=BIGINT}, #{ordersId,jdbcType=BIGINT})
+    </insert>
+    <insert id="insertSelective" parameterType="com.zsycx.orders.domain.OrderInfo">
+        insert into o_order_info
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="price != null">
+                price,
+            </if>
+            <if test="amount != null">
+                amount,
+            </if>
+            <if test="goodsId != null">
+                goods_id,
+            </if>
+            <if test="ordersId != null">
+                orders_id,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=BIGINT},
+            </if>
+            <if test="price != null">
+                #{price,jdbcType=DECIMAL},
+            </if>
+            <if test="amount != null">
+                #{amount,jdbcType=INTEGER},
+            </if>
+            <if test="goodsId != null">
+                #{goodsId,jdbcType=BIGINT},
+            </if>
+            <if test="ordersId != null">
+                #{ordersId,jdbcType=BIGINT},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.zsycx.orders.domain.OrderInfo">
+        update o_order_info
+        <set>
+            <if test="price != null">
+                price = #{price,jdbcType=DECIMAL},
+            </if>
+            <if test="amount != null">
+                amount = #{amount,jdbcType=INTEGER},
+            </if>
+            <if test="goodsId != null">
+                goods_id = #{goodsId,jdbcType=BIGINT},
+            </if>
+            <if test="ordersId != null">
+                orders_id = #{ordersId,jdbcType=BIGINT},
+            </if>
+        </set>
+        where id = #{id,jdbcType=BIGINT}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.zsycx.orders.domain.OrderInfo">
+        update o_order_info
+        set price     = #{price,jdbcType=DECIMAL},
+            amount    = #{amount,jdbcType=INTEGER},
+            goods_id  = #{goodsId,jdbcType=BIGINT},
+            orders_id = #{ordersId,jdbcType=BIGINT}
+        where id = #{id,jdbcType=BIGINT}
+    </update>
+
+    <!--根据 ordersId 删除开始-->
+    <delete id="deleteByOrdersId">
+        delete from o_order_info where orders_id = #{ordersId}
+    </delete>
+    <!--根据 ordersId 删除结束-->
+</mapper>

@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zsycx.user.mapper.UserInfoMapper">
+  <resultMap id="BaseResultMap" type="com.zsycx.user.domain.UserInfo">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="head_portrait" jdbcType="VARCHAR" property="headPortrait" />
+    <result column="birthday_year" jdbcType="INTEGER" property="birthdayYear" />
+    <result column="birthday_month" jdbcType="INTEGER" property="birthdayMonth" />
+    <result column="birthday_day" jdbcType="INTEGER" property="birthdayDay" />
+    <result column="sex" jdbcType="INTEGER" property="sex" />
+    <result column="user_id" jdbcType="BIGINT" property="userId" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, head_portrait, birthday_year, birthday_month, birthday_day, sex, user_id
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from u_user_info
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from u_user_info
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.zsycx.user.domain.UserInfo">
+    insert into u_user_info (id, head_portrait, birthday_year, 
+      birthday_month, birthday_day, sex, 
+      user_id)
+    values (#{id,jdbcType=BIGINT}, #{headPortrait,jdbcType=VARCHAR}, #{birthdayYear,jdbcType=INTEGER}, 
+      #{birthdayMonth,jdbcType=INTEGER}, #{birthdayDay,jdbcType=INTEGER}, #{sex,jdbcType=INTEGER}, 
+      #{userId,jdbcType=BIGINT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zsycx.user.domain.UserInfo">
+    insert into u_user_info
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="headPortrait != null">
+        head_portrait,
+      </if>
+      <if test="birthdayYear != null">
+        birthday_year,
+      </if>
+      <if test="birthdayMonth != null">
+        birthday_month,
+      </if>
+      <if test="birthdayDay != null">
+        birthday_day,
+      </if>
+      <if test="sex != null">
+        sex,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="headPortrait != null">
+        #{headPortrait,jdbcType=VARCHAR},
+      </if>
+      <if test="birthdayYear != null">
+        #{birthdayYear,jdbcType=INTEGER},
+      </if>
+      <if test="birthdayMonth != null">
+        #{birthdayMonth,jdbcType=INTEGER},
+      </if>
+      <if test="birthdayDay != null">
+        #{birthdayDay,jdbcType=INTEGER},
+      </if>
+      <if test="sex != null">
+        #{sex,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zsycx.user.domain.UserInfo">
+    update u_user_info
+    <set>
+      <if test="headPortrait != null">
+        head_portrait = #{headPortrait,jdbcType=VARCHAR},
+      </if>
+      <if test="birthdayYear != null">
+        birthday_year = #{birthdayYear,jdbcType=INTEGER},
+      </if>
+      <if test="birthdayMonth != null">
+        birthday_month = #{birthdayMonth,jdbcType=INTEGER},
+      </if>
+      <if test="birthdayDay != null">
+        birthday_day = #{birthdayDay,jdbcType=INTEGER},
+      </if>
+      <if test="sex != null">
+        sex = #{sex,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=BIGINT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zsycx.user.domain.UserInfo">
+    update u_user_info
+    set head_portrait = #{headPortrait,jdbcType=VARCHAR},
+      birthday_year = #{birthdayYear,jdbcType=INTEGER},
+      birthday_month = #{birthdayMonth,jdbcType=INTEGER},
+      birthday_day = #{birthdayDay,jdbcType=INTEGER},
+      sex = #{sex,jdbcType=INTEGER},
+      user_id = #{userId,jdbcType=BIGINT}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

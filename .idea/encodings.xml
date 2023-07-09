@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="Encoding">
+    <file url="file://$PROJECT_DIR$/LXMall-01-Eureka-Server/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/LXMall-03-User-Server/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/LXMall-04-Goods-Server/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/LXMall-05-Orders-Server/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/LXMall-06-Timer-Server/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/LXMall-07-SecKill-Commons/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/LXMall-08-SecKill-Goods-Server/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/LXMall-09-SecKill-Orders-Server/src/main/java" charset="UTF-8" />
+  </component>
+</project>

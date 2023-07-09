@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zsycx.seckill.mapper.GoodsMapper">
+    <resultMap id="BaseResultMap" type="com.zsycx.seckill.domain.Goods">
+        <id column="id" jdbcType="BIGINT" property="id"/>
+        <result column="name" jdbcType="VARCHAR" property="name"/>
+        <result column="name_desc" jdbcType="VARCHAR" property="nameDesc"/>
+        <result column="price" jdbcType="DECIMAL" property="buyPrice"/>
+        <result column="store" jdbcType="INTEGER" property="store"/>
+        <result column="start_time" jdbcType="TIMESTAMP" property="startTime"/>
+        <result column="end_time" jdbcType="TIMESTAMP" property="endTime"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        id
+        , name, name_desc, price, store, start_time, end_time
+    </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from goods
+        where id = #{id,jdbcType=BIGINT}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+        delete
+        from goods
+        where id = #{id,jdbcType=BIGINT}
+    </delete>
+    <insert id="insert" parameterType="com.zsycx.seckill.domain.Goods">
+        insert into goods (id, name, name_desc,
+                           price, store, start_time,
+                           end_time)
+        values (#{id,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, #{nameDesc,jdbcType=VARCHAR},
+                #{price,jdbcType=DECIMAL}, #{store,jdbcType=INTEGER}, #{startTime,jdbcType=TIMESTAMP},
+                #{endTime,jdbcType=TIMESTAMP})
+    </insert>
+    <insert id="insertSelective" parameterType="com.zsycx.seckill.domain.Goods">
+        insert into goods
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="name != null">
+                name,
+            </if>
+            <if test="nameDesc != null">
+                name_desc,
+            </if>
+            <if test="price != null">
+                price,
+            </if>
+            <if test="store != null">
+                store,
+            </if>
+            <if test="startTime != null">
+                start_time,
+            </if>
+            <if test="endTime != null">
+                end_time,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=BIGINT},
+            </if>
+            <if test="name != null">
+                #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="nameDesc != null">
+                #{nameDesc,jdbcType=VARCHAR},
+            </if>
+            <if test="price != null">
+                #{price,jdbcType=DECIMAL},
+            </if>
+            <if test="store != null">
+                #{store,jdbcType=INTEGER},
+            </if>
+            <if test="startTime != null">
+                #{startTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="endTime != null">
+                #{endTime,jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.zsycx.seckill.domain.Goods">
+        update goods
+        <set>
+            <if test="name != null">
+                name = #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="nameDesc != null">
+                name_desc = #{nameDesc,jdbcType=VARCHAR},
+            </if>
+            <if test="price != null">
+                price = #{price,jdbcType=DECIMAL},
+            </if>
+            <if test="store != null">
+                store = #{store,jdbcType=INTEGER},
+            </if>
+            <if test="startTime != null">
+                start_time = #{startTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="endTime != null">
+                end_time = #{endTime,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        where id = #{id,jdbcType=BIGINT}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.zsycx.seckill.domain.Goods">
+        update goods
+        set name       = #{name,jdbcType=VARCHAR},
+            name_desc  = #{nameDesc,jdbcType=VARCHAR},
+            price      = #{price,jdbcType=DECIMAL},
+            store      = #{store,jdbcType=INTEGER},
+            start_time = #{startTime,jdbcType=TIMESTAMP},
+            end_time   = #{endTime,jdbcType=TIMESTAMP}
+        where id = #{id,jdbcType=BIGINT}
+    </update>
+    <!--查询全部秒杀商品信息开始-->
+    <select id="selectSecKillGoodsInfo" resultMap="BaseResultMap">
+        select id, store, price, start_time, end_time
+        from goods
+    </select>
+    <!--查询全部秒杀商品信息结束-->
+
+</mapper>

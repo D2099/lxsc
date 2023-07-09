@@ -1,0 +1,274 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zsycx.goods.mapper.EvaluateMapper">
+    <resultMap id="BaseResultMap" type="com.zsycx.goods.domain.Evaluate">
+        <!--映射基本评论数据字段-->
+        <id column="id" jdbcType="BIGINT" property="id"/>
+        <result column="content1" jdbcType="VARCHAR"/>
+        <result column="content" jdbcType="VARCHAR" property="content"/>
+        <result column="score" jdbcType="INTEGER" property="score"/>
+        <result column="user_id" jdbcType="BIGINT" property="userId"/>
+        <result column="goods_id" jdbcType="BIGINT" property="goodsId"/>
+        <result column="time" jdbcType="VARCHAR" property="time"/>
+        <!--<result column="nick_name" jdbcType="VARCHAR" property="nickName"/>-->
+        <!--<result column="head_portrait" jdbcType="VARCHAR" property="headPortrait"/>-->
+        <!--Evaluate当前类定义变量方式 List 变量 -->
+        <!--<collection property="evaluateImgList"-->
+        <!--            ofType="com.zsycx.goods.domain.EvaluateImg"-->
+        <!--            javaType="ArrayList"-->
+        <!--            column="{evaluateId = id}"-->
+        <!--            select="selectEvaluateByEvaluateImg" >-->
+        <!--</collection>-->
+
+        <!--映射其他字段-->
+        <!-- ============================================ 使用自定义类接收其他信息 ============================================ -->
+        <association property="evaluateOther" javaType="com.zsycx.goods.domain.EvaluateOther">
+            <result column="nick_name" jdbcType="VARCHAR" property="nickName"/>
+            <result column="head_portrait" jdbcType="VARCHAR" property="headPortrait"/>
+            <collection property="evaluateImgList"
+                        ofType="com.zsycx.goods.domain.EvaluateImg"
+                        column="{evaluateId = id}"
+                        select="selectHeadPortrait"/>
+        </association>
+    </resultMap>
+
+    <!--通用查询带有图片的评价信息-->
+    <select id="selectHeadPortrait" resultType="com.zsycx.goods.domain.EvaluateImg">
+        select image_url from g_evaluate_img where evaluate_id = #{evaluateId}
+    </select>
+    <!--查询全部以及评价等级开始-->
+    <select id="selectEvaluateListEnhanced" resultMap="BaseResultMap" parameterType="Long">
+        select ge.*, uu.nick_name, uui.head_portrait
+        from g_evaluate as ge
+        left join u_user as uu
+        on ge.user_id = uu.id
+        left join u_user_info as uui
+        on ge.user_id = uui.user_id
+        where ge.goods_id = #{goodsId}
+        <if test="evaluateLevel == 'A'.toString()"> -- 调用 toString 方法或者引号交换，外层使用单引号，将字符转换为字符串，否则可能会报错
+            and score between 4 and 5
+        </if>
+        <if test="evaluateLevel == 'B'.toString()">
+            and score = 3
+        </if>
+        <if test="evaluateLevel == 'C'.toString()">
+            and score between 1 and 2
+        </if>
+        limit ${skipNum}, ${pageSize}
+    </select>
+    <!--查询全部以及评价等级结束-->
+    <!--查询带图片评价开始-->
+    <!--查询数据个数-->
+    <select id="selectEvaluateByImageGoodsId" resultType="Long">
+        select count(ge.id)
+        from g_evaluate as ge
+        inner join (select gei.evaluate_id from g_evaluate_img as gei group by gei.evaluate_id) as img
+        on ge.id = img.evaluate_id
+    </select>
+    <!--查询带图评价-->
+    <select id="selectEvaluateImageListEnhanced" resultMap="BaseResultImageMap">
+        -- 通过 distinct 属性去重数据（不去重复数据会出现读取问题）
+        select distinct ge.*, uu.nick_name, uui.head_portrait
+        from g_evaluate as ge
+        left join u_user as uu
+        on ge.user_id = uu.id
+        left join u_user_info as uui
+        on uu.id = uui.user_id
+        inner join g_evaluate_img as gei
+        on ge.id = gei.evaluate_id
+        where ge.goods_id = #{goodsId}
+        limit ${skipNum}, ${pageSize}
+    </select>
+    <resultMap id="BaseResultImageMap" type="com.zsycx.goods.domain.Evaluate">
+        <!--映射基本评论数据字段-->
+        <id column="id" jdbcType="BIGINT" property="id"/>
+        <!--<result column="content1" jdbcType="VARCHAR"/>-->
+        <result column="content" jdbcType="VARCHAR" property="content"/>
+        <result column="score" jdbcType="INTEGER" property="score"/>
+        <result column="user_id" jdbcType="BIGINT" property="userId"/>
+        <result column="goods_id" jdbcType="BIGINT" property="goodsId"/>
+        <result column="time" jdbcType="VARCHAR" property="time"/>
+        <!-- ============================================ 使用自定义类接收其他信息 ============================================ -->
+        <association property="evaluateOther" javaType="com.zsycx.goods.domain.EvaluateOther">
+            <result column="nick_name" jdbcType="VARCHAR" property="nickName"/>
+            <result column="head_portrait" jdbcType="VARCHAR" property="headPortrait"/>
+            <collection property="evaluateImgList"
+                        ofType="com.zsycx.goods.domain.EvaluateImg"
+                        javaType="ArrayList"
+                        column="{evaluateId = id}"
+                        select="selectHeadPortrait">
+                        <!--通过查询到的evaluate id 查询对应的图片-->
+            </collection>
+        </association>
+    </resultMap>
+    <!--查询带图片评价结束-->
+    <!--查询各类评价等级数量开始-->
+    <select id="countEvaluateNumMap" resultType="Map">
+        -- 使用临时表查询
+        select
+            (select count(*) from g_evaluate where goods_id = #{goodsId} and score between 4 and 5) as A, -- 查询 A 级评价
+            (select count(*) from g_evaluate where goods_id = #{goodsId} and score = 3) as B, -- 查询 B 级评价
+            (select count(*) from g_evaluate where goods_id = #{goodsId} and score between 1 and 2) as C, -- 查询 C 级评价
+            (select count(ge.id) from g_evaluate as ge inner join -- 查询有图评价
+                (select gei.evaluate_id from g_evaluate_img as gei group by gei.evaluate_id) as img
+            on ge.id = img.evaluate_id where ge.goods_id = #{goodsId}) as image
+    </select>
+    <!--查询各类评价等级数量结束-->
+    <!-- ============================================ 使用自定义类接收其他信息 ============================================ -->
+
+    <!-- ============================================ Evaluate当前类定义变量方式 ============================================ -->
+    <!--外部定义 resultMap 接收查询数据-->
+    <resultMap id="evaluateImgMap" type="com.zsycx.goods.domain.EvaluateImg">
+        <result column="image_url" jdbcType="VARCHAR" property="imageUrl"/>
+    </resultMap>
+
+    <select id="selectEvaluateByEvaluateImg" resultType="com.zsycx.goods.domain.EvaluateImg">
+        -- 如果不给字段起别名需要在配置文件中添加 mybatis.configuration.map-underscore-to-camel-case=true 配置
+        -- 否则查询到的结果不会映射到 Java 实体类中
+        select image_url
+        -- 给字段起别名后 MyBatis 会自动将查询到的字段数据映射到 resultType类型的 Java 实体类 字段别名对应的变量中
+        -- select image_url as imageUrl
+        from g_evaluate_img
+        where evaluate_id = #{evaluateId}
+    </select>
+
+    <!-- 商品评价多表连接查询 -->
+    <select id="selectEvaluateList" resultMap="BaseResultMap" parameterType="Long">
+        select ge.*, uu.nick_Name, uui.head_portrait -- 需要查询多表的字段
+        from  g_evaluate as ge -- 内连接表 A
+                  inner join u_user as uu -- 内连接表 B
+                             on ge.user_id = uu.id -- 连接属性
+                  left join u_user_info as uui -- 外连接表 C
+                            on uu.id = uui.user_id -- 表 B 与 表 C 属性连接
+        where ge.goods_id = #{goodsId} -- 查询条件
+            limit ${skipNum},${pageSize} -- 跳过数据
+    </select>
+    <!-- ============================================ Evaluate当前类定义变量方式 ============================================ -->
+    <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.zsycx.goods.domain.Evaluate">
+        <result column="time" jdbcType="LONGVARCHAR" property="time"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        id
+        , content, score, user_id, goods_id
+    </sql>
+    <sql id="Blob_Column_List">
+        time
+    </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="ResultMapWithBLOBs">
+        select
+        <include refid="Base_Column_List"/>
+        ,
+        <include refid="Blob_Column_List"/>
+        from g_evaluate
+        where id = #{id,jdbcType=BIGINT}
+    </select>
+
+    <!-- 商品评价总数查询 -->
+    <select id="selectEvaluateByGoodsId" resultType="Long" parameterType="Long">
+        select count(*)
+        from g_evaluate
+        where score
+        <if test="evaluateLevel == 'A'.toString()">
+            between 4 and 5
+        </if>
+        <if test="evaluateLevel == 'B'.toString()">
+             = 3
+        </if>
+        <if test="evaluateLevel == 'C'.toString()">
+            between 1 and 2
+        </if>
+    </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+        delete
+        from g_evaluate
+        where id = #{id,jdbcType=BIGINT}
+    </delete>
+    <insert id="insert" parameterType="com.zsycx.goods.domain.Evaluate">
+        insert into g_evaluate (id, content, score,
+                                user_id, goods_id, time)
+        values (#{id,jdbcType=BIGINT}, #{content,jdbcType=VARCHAR}, #{score,jdbcType=INTEGER},
+                #{userId,jdbcType=BIGINT}, #{goodsId,jdbcType=BIGINT}, #{time,jdbcType=LONGVARCHAR})
+    </insert>
+    <insert id="insertSelective" parameterType="com.zsycx.goods.domain.Evaluate">
+        insert into g_evaluate
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="content != null">
+                content,
+            </if>
+            <if test="score != null">
+                score,
+            </if>
+            <if test="userId != null">
+                user_id,
+            </if>
+            <if test="goodsId != null">
+                goods_id,
+            </if>
+            <if test="time != null">
+                time,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=BIGINT},
+            </if>
+            <if test="content != null">
+                #{content,jdbcType=VARCHAR},
+            </if>
+            <if test="score != null">
+                #{score,jdbcType=INTEGER},
+            </if>
+            <if test="userId != null">
+                #{userId,jdbcType=BIGINT},
+            </if>
+            <if test="goodsId != null">
+                #{goodsId,jdbcType=BIGINT},
+            </if>
+            <if test="time != null">
+                #{time,jdbcType=LONGVARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.zsycx.goods.domain.Evaluate">
+        update g_evaluate
+        <set>
+            <if test="content != null">
+                content = #{content,jdbcType=VARCHAR},
+            </if>
+            <if test="score != null">
+                score = #{score,jdbcType=INTEGER},
+            </if>
+            <if test="userId != null">
+                user_id = #{userId,jdbcType=BIGINT},
+            </if>
+            <if test="goodsId != null">
+                goods_id = #{goodsId,jdbcType=BIGINT},
+            </if>
+            <if test="time != null">
+                time = #{time,jdbcType=LONGVARCHAR},
+            </if>
+        </set>
+        where id = #{id,jdbcType=BIGINT}
+    </update>
+    <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.zsycx.goods.domain.Evaluate">
+        update g_evaluate
+        set content  = #{content,jdbcType=VARCHAR},
+            score    = #{score,jdbcType=INTEGER},
+            user_id  = #{userId,jdbcType=BIGINT},
+            goods_id = #{goodsId,jdbcType=BIGINT},
+            time     = #{time,jdbcType=LONGVARCHAR}
+        where id = #{id,jdbcType=BIGINT}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.zsycx.goods.domain.Evaluate">
+        update g_evaluate
+        set content  = #{content,jdbcType=VARCHAR},
+            score    = #{score,jdbcType=INTEGER},
+            user_id  = #{userId,jdbcType=BIGINT},
+            goods_id = #{goodsId,jdbcType=BIGINT}
+        where id = #{id,jdbcType=BIGINT}
+    </update>
+</mapper>

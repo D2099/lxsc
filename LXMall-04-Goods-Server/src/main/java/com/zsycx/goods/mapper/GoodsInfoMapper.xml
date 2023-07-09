@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zsycx.goods.mapper.GoodsInfoMapper">
+    <resultMap id="BaseResultMap" type="com.zsycx.goods.domain.GoodsInfo">
+        <id column="id" jdbcType="BIGINT" property="id"/>
+        <result column="goods_describe" jdbcType="VARCHAR" property="goodsDescribe"/>
+        <result column="store" jdbcType="INTEGER" property="store"/>
+        <result column="create_time" jdbcType="BIGINT" property="createTime"/>
+        <result column="price" jdbcType="DECIMAL" property="price"/>
+        <result column="cost" jdbcType="DECIMAL" property="cost"/>
+        <result column="publish_status" jdbcType="INTEGER" property="publishStatus"/>
+        <result column="audit_status" jdbcType="INTEGER" property="auditStatus"/>
+        <result column="production_date" jdbcType="DATE" property="productionDate"/>
+        <result column="shelf_life" jdbcType="DATE" property="shelfLife"/>
+        <result column="goods_id" jdbcType="BIGINT" property="goodsId"/>
+        <result column="version" jdbcType="BIGINT" property="version"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        id
+        , goods_describe, store, create_time, price, cost, publish_status, audit_status,
+    production_date, shelf_life, goods_id, version
+    </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from g_goods_info
+        where id = #{id,jdbcType=BIGINT}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+        delete
+        from g_goods_info
+        where id = #{id,jdbcType=BIGINT}
+    </delete>
+    <insert id="insert" parameterType="com.zsycx.goods.domain.GoodsInfo">
+        insert into g_goods_info (id, goods_describe, store,
+                                  create_time, price, cost,
+                                  publish_status, audit_status, production_date,
+                                  shelf_life, goods_id, version)
+        values (#{id,jdbcType=BIGINT}, #{goodsDescribe,jdbcType=VARCHAR}, #{store,jdbcType=INTEGER},
+                #{createTime,jdbcType=BIGINT}, #{price,jdbcType=DECIMAL}, #{cost,jdbcType=DECIMAL},
+                #{publishStatus,jdbcType=INTEGER}, #{auditStatus,jdbcType=INTEGER}, #{productionDate,jdbcType=DATE},
+                #{shelfLife,jdbcType=DATE}, #{goodsId,jdbcType=BIGINT}, #{version,jdbcType=BIGINT})
+    </insert>
+    <insert id="insertSelective" parameterType="com.zsycx.goods.domain.GoodsInfo">
+        insert into g_goods_info
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="goodsDescribe != null">
+                goods_describe,
+            </if>
+            <if test="store != null">
+                store,
+            </if>
+            <if test="createTime != null">
+                create_time,
+            </if>
+            <if test="price != null">
+                price,
+            </if>
+            <if test="cost != null">
+                cost,
+            </if>
+            <if test="publishStatus != null">
+                publish_status,
+            </if>
+            <if test="auditStatus != null">
+                audit_status,
+            </if>
+            <if test="productionDate != null">
+                production_date,
+            </if>
+            <if test="shelfLife != null">
+                shelf_life,
+            </if>
+            <if test="goodsId != null">
+                goods_id,
+            </if>
+            <if test="version != null">
+                version,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=BIGINT},
+            </if>
+            <if test="goodsDescribe != null">
+                #{goodsDescribe,jdbcType=VARCHAR},
+            </if>
+            <if test="store != null">
+                #{store,jdbcType=INTEGER},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=BIGINT},
+            </if>
+            <if test="price != null">
+                #{price,jdbcType=DECIMAL},
+            </if>
+            <if test="cost != null">
+                #{cost,jdbcType=DECIMAL},
+            </if>
+            <if test="publishStatus != null">
+                #{publishStatus,jdbcType=INTEGER},
+            </if>
+            <if test="auditStatus != null">
+                #{auditStatus,jdbcType=INTEGER},
+            </if>
+            <if test="productionDate != null">
+                #{productionDate,jdbcType=DATE},
+            </if>
+            <if test="shelfLife != null">
+                #{shelfLife,jdbcType=DATE},
+            </if>
+            <if test="goodsId != null">
+                #{goodsId,jdbcType=BIGINT},
+            </if>
+            <if test="version != null">
+                #{version,jdbcType=BIGINT},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.zsycx.goods.domain.GoodsInfo">
+        update g_goods_info
+        <set>
+            <if test="goodsDescribe != null">
+                goods_describe = #{goodsDescribe,jdbcType=VARCHAR},
+            </if>
+            <if test="store != null">
+                store = #{store,jdbcType=INTEGER},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime,jdbcType=BIGINT},
+            </if>
+            <if test="price != null">
+                price = #{price,jdbcType=DECIMAL},
+            </if>
+            <if test="cost != null">
+                cost = #{cost,jdbcType=DECIMAL},
+            </if>
+            <if test="publishStatus != null">
+                publish_status = #{publishStatus,jdbcType=INTEGER},
+            </if>
+            <if test="auditStatus != null">
+                audit_status = #{auditStatus,jdbcType=INTEGER},
+            </if>
+            <if test="productionDate != null">
+                production_date = #{productionDate,jdbcType=DATE},
+            </if>
+            <if test="shelfLife != null">
+                shelf_life = #{shelfLife,jdbcType=DATE},
+            </if>
+            <if test="goodsId != null">
+                goods_id = #{goodsId,jdbcType=BIGINT},
+            </if>
+            <if test="version != null">
+                version = #{version,jdbcType=BIGINT},
+            </if>
+        </set>
+        where id = #{id,jdbcType=BIGINT}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.zsycx.goods.domain.GoodsInfo">
+        update g_goods_info
+        set goods_describe  = #{goodsDescribe,jdbcType=VARCHAR},
+            store           = #{store,jdbcType=INTEGER},
+            create_time     = #{createTime,jdbcType=BIGINT},
+            price           = #{price,jdbcType=DECIMAL},
+            cost            = #{cost,jdbcType=DECIMAL},
+            publish_status  = #{publishStatus,jdbcType=INTEGER},
+            audit_status    = #{auditStatus,jdbcType=INTEGER},
+            production_date = #{productionDate,jdbcType=DATE},
+            shelf_life      = #{shelfLife,jdbcType=DATE},
+            goods_id        = #{goodsId,jdbcType=BIGINT},
+            version         = #{version,jdbcType=BIGINT}
+        where id = #{id,jdbcType=BIGINT}
+    </update>
+    <!--减少库存开始-->
+    <update id="inventoryReduction">
+        update g_goods_info set store = store - #{buyNum} where id = #{goodsId} and store >= #{buyNum}
+    </update>
+    <!--减少库存结束-->
+    <!--查询商品金额开始-->
+    <select id="selectGoodsPrice" resultType="java.math.BigDecimal">
+        select price from g_goods_info where id = #{goodsId}
+    </select>
+    <!--查询商品金额结束-->
+    <!--库存回退开始-->
+    <update id="goodsStockRollback">
+        update g_goods_info set store = store + #{buyNum} where id = #{goodsId}
+    </update>
+    <!--库存回退结束-->
+</mapper>
